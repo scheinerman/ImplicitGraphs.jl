@@ -1,2 +1,3 @@
-# ImplicitGraphs.jl
+# ImplicitGraphs
+
 Implicitly defined graphs (possibly infinite)
