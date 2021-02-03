@@ -25,6 +25,8 @@ G = ImplicitGraph{Int}(yes, N)
 ```
 The `yes` function always returns `true` for any `Int`. The `N` function returns the two neighbors of a vertex `v`. (For a truly infinite path, use `BigInt` in place of `Int`).
 
+Note that if `v` is an element of its own neighbor set, that represents a loop at vertex `v`.
+
 ### Undirected and directed graphs 
 
 The user-supplied `out_neighbors` function can be used to create both undirected and directed graphs. If an undirected graph is intended, be sure that if `{v,w}` is an edge of the graph, then `w` will be in the list returned by `out_neighbors(v)` and `v` will be in the list returned by `out_neighbors(w)`.
@@ -59,4 +61,4 @@ We provide a few basic graphs that can be created using the following methods:
 
 * `iPath()` creates an (essentially) infinite undirected path whose vertex set contains any integer (object of type `Int`).
 
-* `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (`Int`s).
+* `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (object of type `Int`).

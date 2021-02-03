@@ -10,10 +10,8 @@ function iCycle(n::Int)::ImplicitGraph{Int}
     end
 
     function N(v::Int)
-        a = mod(v + 1, n)
-        b = mod(v - 1, n)
-        a = a == 0 ? n : a
-        b = b == 0 ? n : b
+        a = mod1(v + 1, n)
+        b = mod1(v - 1, n)
         return [b, a]
     end
 
