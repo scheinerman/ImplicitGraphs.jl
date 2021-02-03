@@ -18,7 +18,7 @@ end
 
 function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
     if !has_vertex(G,v) || !has_vertex(G,w)
-        error("One of both of vertices $v and $w are not in this graph")
+        error("One or both of vertices $v and $w are not in this graph")
     end 
     return in(w,G[v])
 end
