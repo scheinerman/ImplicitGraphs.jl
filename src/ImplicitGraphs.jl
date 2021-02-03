@@ -40,5 +40,6 @@ function show(io::IO, G::ImplicitGraph{T}) where {T}
 end
 
 include("iGraphs.jl")
+include("find_path.jl")
 
 end # module

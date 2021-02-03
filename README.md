@@ -51,7 +51,30 @@ To get a list of the (out) neighbors of a vertex `v`, use `G[v]`.
 
 ## Path Finding
 
-> **Under Construction**
+The function `find_path` finds a shortest path between vertices of a graph. This function may run without returning if the graph is infinite and disconnected.
+```julia
+julia> G = iGrid()
+ImplicitGraph{Tuple{Int64,Int64}}
+
+julia> find_path(G,(0,0), (3,5))
+9-element Array{Tuple{Int64,Int64},1}:
+ (0, 0)
+ (0, 1)
+ (0, 2)
+ (0, 3)
+ (0, 4)
+ (0, 5)
+ (1, 5)
+ (2, 5)
+ (3, 5)
+```
+
+The function `dist` returns the length of a shortest path between vertices in the graph.
+```julia
+julia> dist(G,(0,0),(3,5))
+8
+```
+
 
 ## Predefined Graphs
 
