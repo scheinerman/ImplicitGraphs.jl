@@ -10,11 +10,19 @@ struct ImplicitGraph{T}
 end
 
 function getindex(G::ImplicitGraph{T}, v::T) where {T}
-    if !G.has_vertex(v)
+    if !has_vertex(G,v)
         error("This graph does not have a vertex $v")
     end
     G.N(v)
 end
+
+function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
+    if !has_vertex(G,v) || !has_vertex(G,w)
+        error("One of both of vertices $v and $w are not in this graph")
+    end 
+    return in(w,G[v])
+end
+
 
 """
 `has_vertex(G::ImplicitGraph,v)` checks if `v` is a vertex of `G`.
