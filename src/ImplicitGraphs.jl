@@ -1,5 +1,7 @@
 module ImplicitGraphs
 
+using DataStructures
+
 export ImplicitGraph, has_vertex
 
 import Base: getindex, show, eltype

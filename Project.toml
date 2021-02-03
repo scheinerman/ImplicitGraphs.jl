@@ -2,3 +2,13 @@ name = "ImplicitGraphs"
 uuid = "aa20a09e-9376-456a-970d-31341b90bdf0"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
 version = "0.1.0"
+
+[deps]
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+
+[compat]
+julia = "1"
+DataStructures = "0.9, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
