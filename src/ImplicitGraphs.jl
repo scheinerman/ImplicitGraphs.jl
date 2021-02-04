@@ -2,7 +2,7 @@ module ImplicitGraphs
 
 using DataStructures
 
-export ImplicitGraph, has_vertex
+export ImplicitGraph, has_vertex, deg
 
 import Base: getindex, show, eltype
 
@@ -26,6 +26,12 @@ function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
     end
     return in(w, G[v])
 end
+
+"""
+`deg(G::ImplicitGraph,v)` returns the degree of vertex `v`
+in the graph `G`.
+"""
+deg(G::ImplicitGraph{T}, v::T) where {T} = length(G[v])
 
 
 """

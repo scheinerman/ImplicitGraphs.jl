@@ -64,6 +64,8 @@ To test if `{v,w}` is an edge of `G` use `G[v,w]`. Note that `v` and `w` must bo
 
 To get a list of the (out) neighbors of a vertex `v`, use `G[v]`.
 
+To get the degree of a vertex in a graph, use `deg(G,v)`.
+
 ```julia
 julia> G = iGrid()
 ImplicitGraph{Tuple{Int64,Int64}}
@@ -80,6 +82,9 @@ julia> G[(1,2)]
 
 julia> G[(1,2),(1,3)]
 true
+
+julia> deg(G,(5,0))
+4
 ```
 
 ## Path Finding
@@ -108,3 +113,7 @@ julia> dist(G,(0,0),(3,5))
 8
 ```
 
+## To Do
+
+Some function names in `ImplictGraphs` conflict with names in `SimpleGraphs`, so I 
+should make this module rely on `SimpleGraphs`.
