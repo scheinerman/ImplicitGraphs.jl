@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.com/scheinerman/ImplicitGraphs.jl.svg?branch=main)](https://travis-ci.com/scheinerman/ImplicitGraphs.jl)
 
 
-An `ImplicitGraph` is a graph in which the vertices and edges are implicitly defined by two functions: one that tests for vertex membership and one that returns a list of (out) neighbors of a vertex. 
+An `ImplicitGraph` is a graph in which the vertices and edges are implicitly defined by two functions: one that tests for vertex membership and one that returns a list of the (out) neighbors of a vertex. 
 
-The vertex set of an `ImplicitGraph` may be finite or (implicitly) infinite. The (out) degree, however, must be finite.
+The vertex set of an `ImplicitGraph` may be finite or (implicitly) infinite. The (out) degrees, however, must be finite.
 
 ## Creating Graphs
 
