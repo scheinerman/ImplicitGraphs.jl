@@ -3,8 +3,8 @@ export find_path, dist
 """
 `find_path(G::ImplicitGraph,s,t)` finds a shortest path from `s` to `t`. 
 """
-function find_path(G::ImplicitGraph{T}, s::T, t::T) where T
-   
+function find_path(G::ImplicitGraph{T}, s::T, t::T) where {T}
+
     if !has_vertex(G, s) || !has_vertex(G, t)
         error("Source and/or target vertex is not in this graph")
     end
@@ -45,4 +45,4 @@ function find_path(G::ImplicitGraph{T}, s::T, t::T) where T
     return T[]   # return empty array if no path found
 end
 
-dist(G::ImplicitGraph{T},s::T,t::T) where T = length(find_path(G,s,t))-1
+dist(G::ImplicitGraph{T}, s::T, t::T) where {T} = length(find_path(G, s, t)) - 1

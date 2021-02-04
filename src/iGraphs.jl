@@ -1,4 +1,4 @@
-export iCycle, iPath, iGrid
+export iCycle, iPath, iGrid, iKnight
 
 """
 `iCycle(n::Int)` creates an implicit graph that is
@@ -64,6 +64,29 @@ function iGrid()::ImplicitGraph{Tuple{Int,Int}}
     function N(v::Tuple{Int,Int})::Vector{Tuple{Int,Int}}
         a, b = v
         return [(a, b - 1), (a, b + 1), (a - 1, b), (a + 1, b)]
+    end
+    return ImplicitGraph{Tuple{Int,Int}}(yes, N)
+end
+
+"""
+`iKnight()` returns the Knight's move graph on an infinite 
+chessboard.
+"""
+function iKnight()::ImplicitGraph{Tuple{Int,Int}}
+    yes(v::Tuple{Int,Int}) = true
+    function N(v::Tuple{Int,Int})::Vector{Tuple{Int,Int}}
+        a, b = v
+        neigh = [
+            (a + 1, b + 2),
+            (a + 1, b - 2),
+            (a + 2, b + 1),
+            (a + 2, b - 1),
+            (a - 1, b + 2),
+            (a - 1, b - 2),
+            (a - 2, b + 1),
+            (a - 2, b - 1),
+        ]
+        return neigh
     end
     return ImplicitGraph{Tuple{Int,Int}}(yes, N)
 end

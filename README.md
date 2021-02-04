@@ -41,6 +41,21 @@ G = ImplicitGraph{Int}(yes, N)
 ```
 
 
+## Predefined Graphs
+
+We provide a few basic graphs that can be created using the following methods:
+
+* `iCycle(n::Int)` creates an undirected cycle with vertex set `{1,2,...,n}`.
+
+* `iPath(n::Int)` creates an undirected path with vertex set `{1,2,...,n}`.
+
+* `iPath()` creates an (essentially) infinite undirected path whose vertex set contains all integers (objects of type `Int`).
+
+* `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (objects of type `Int`).
+
+* `iKnight()` creates the Knight's move graph on an (essentially) infinite chessboard. The vertices are pairs of integers (objects of type `Int`).
+
+
 ## Inspection
 
 To test if `v` is a vertex of an `ImplicitGraph` `G`, use `has_vertex(G)`. Note that the data type of `v` must match the element type of `G`. (The function `eltype` returns the data type of the vertics of the `ImplicitGraph`.)
@@ -48,6 +63,24 @@ To test if `v` is a vertex of an `ImplicitGraph` `G`, use `has_vertex(G)`. Note 
 To test if `{v,w}` is an edge of `G` use `G[v,w]`. Note that `v` and `w` must both be vertices of `G` or an error is thrown.
 
 To get a list of the (out) neighbors of a vertex `v`, use `G[v]`.
+
+```julia
+julia> G = iGrid()
+ImplicitGraph{Tuple{Int64,Int64}}
+
+julia> has_vertex(G,(1,2))
+true
+
+julia> G[(1,2)]
+4-element Array{Tuple{Int64,Int64},1}:
+ (1, 1)
+ (1, 3)
+ (0, 2)
+ (2, 2)
+
+julia> G[(1,2),(1,3)]
+true
+```
 
 ## Path Finding
 
@@ -75,15 +108,3 @@ julia> dist(G,(0,0),(3,5))
 8
 ```
 
-
-## Predefined Graphs
-
-We provide a few basic graphs that can be created using the following methods:
-
-* `iCycle(n::Int)` creates an undirected cycle with vertex set `{1,2,...,n}`.
-
-* `iPath(n::Int)` creates an undirected path with vertex set `{1,2,...,n}`.
-
-* `iPath()` creates an (essentially) infinite undirected path whose vertex set contains any integer (object of type `Int`).
-
-* `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (object of type `Int`).
