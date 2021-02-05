@@ -25,7 +25,7 @@ yes(v::Int)::Bool = true
 N(v::Int)::Vector{Int} = [v-1, v+1]
 G = ImplicitGraph{Int}(yes, N)
 ```
-The `yes` function always returns `true` for any `Int`. The `N` function returns the two neighbors of a vertex `v`. (For a truly infinite path, use `BigInt` in place of `Int`).
+The `yes` function always returns `true` for any `Int`. The `N` function returns the two neighbors of a vertex `v`. (For a truly infinite path, use `BigInt` in place of `Int`.)
 
 Note that if `v` is an element of its own neighbor set, that represents a loop at vertex `v`.
 
