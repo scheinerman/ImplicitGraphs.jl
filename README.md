@@ -116,4 +116,6 @@ julia> dist(G,(0,0),(3,5))
 ## To Do
 
 Some function names in `ImplictGraphs` conflict with names in `SimpleGraphs`, so I 
-should make this module rely on `SimpleGraphs`.
+should make this module rely on `SimpleGraphs`, but that will slow down loading.
+
+This would open the possibility of being able to construct a `SimpleGraph` from an `ImplicitGraph` with a function call of the form `SimpleGraph(G::ImplicitGraph, V::Set)`.
