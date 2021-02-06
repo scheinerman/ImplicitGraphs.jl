@@ -2,9 +2,11 @@ module ImplicitGraphs
 
 using DataStructures
 
-export ImplicitGraph, has_vertex, deg
+export ImplicitGraph
 
 import Base: getindex, show, eltype
+import SimpleGraphs: deg, find_path, dist, has
+export deg, find_path, dist, has
 
 struct ImplicitGraph{T}
     has_vertex::Function
@@ -12,7 +14,7 @@ struct ImplicitGraph{T}
 end
 
 function getindex(G::ImplicitGraph{T}, v::T) where {T}
-    if !has_vertex(G, v)
+    if !has(G, v)
         error("This graph does not have a vertex $v")
     end
     G.out_neighbors(v)
@@ -21,11 +23,13 @@ end
 eltype(G::ImplicitGraph{T}) where {T} = T
 
 function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
-    if !has_vertex(G, v) || !has_vertex(G, w)
+    if !has(G, v) || !has(G, w)
         error("One or both of vertices $v and $w are not in this graph")
     end
     return in(w, G[v])
 end
+
+has(G::ImplicitGraph{T},v::T,w::T) where {T} = G[v,w]
 
 """
 `deg(G::ImplicitGraph,v)` returns the degree of vertex `v`
@@ -35,9 +39,11 @@ deg(G::ImplicitGraph{T}, v::T) where {T} = length(G[v])
 
 
 """
-`has_vertex(G::ImplicitGraph,v)` checks if `v` is a vertex of `G`.
+`has(G::ImplicitGraph,v)` checks if `v` is a vertex of `G`.
+
+`has(G,v,w)` checks if `(v,w)` is an edge of `G`.
 """
-function has_vertex(G::ImplicitGraph{T}, v::T) where {T}
+function has(G::ImplicitGraph{T}, v::T) where {T}
     return G.has_vertex(v)
 end
 

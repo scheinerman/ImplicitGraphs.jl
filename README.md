@@ -58,13 +58,13 @@ We provide a few basic graphs that can be created using the following methods:
 
 ## Inspection
 
-To test if `v` is a vertex of an `ImplicitGraph` `G`, use `has_vertex(G)`. Note that the data type of `v` must match the element type of `G`. (The function `eltype` returns the data type of the vertics of the `ImplicitGraph`.)
+* To test if `v` is a vertex of an `ImplicitGraph` `G`, use `has(G)`. Note that the data type of `v` must match the element type of `G`. (The function `eltype` returns the data type of the vertices of the `ImplicitGraph`.)
 
-To test if `{v,w}` is an edge of `G` use `G[v,w]`. Note that `v` and `w` must both be vertices of `G` or an error is thrown.
+* To test if `{v,w}` is an edge of `G` use `G[v,w]` or `has(G,v,w)`. Note that `v` and `w` must both be vertices of `G` or an error is thrown.
 
-To get a list of the (out) neighbors of a vertex `v`, use `G[v]`.
+* To get a list of the (out) neighbors of a vertex `v`, use `G[v]`.
 
-To get the degree of a vertex in a graph, use `deg(G,v)`.
+* To get the degree of a vertex in a graph, use `deg(G,v)`.
 
 ```julia
 julia> G = iGrid()
@@ -115,7 +115,4 @@ julia> dist(G,(0,0),(3,5))
 
 ## To Do
 
-Some function names in `ImplictGraphs` conflict with names in `SimpleGraphs`, so I 
-should make this module rely on `SimpleGraphs`, but that will slow down loading.
-
-This would open the possibility of being able to construct a `SimpleGraph` from an `ImplicitGraph` with a function call of the form `SimpleGraph(G::ImplicitGraph, V::Set)`.
+Create methods to return an induced subgraph of an `ImplicitGraph` as a `SimpleGraph` or a `SimpleDigraph`.

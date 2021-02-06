@@ -5,7 +5,7 @@ export find_path, dist
 """
 function find_path(G::ImplicitGraph{T}, s::T, t::T) where {T}
 
-    if !has_vertex(G, s) || !has_vertex(G, t)
+    if !has(G, s) || !has(G, t)
         error("Source and/or target vertex is not in this graph")
     end
     if s == t
