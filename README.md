@@ -53,6 +53,8 @@ We provide a few basic graphs that can be created using the following methods:
 
 * `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (objects of type `Int`).
 
+* `iCube(d::Int)` creates a `d`-dimensional cube graph. The vertices are all `d`-long strings of `0`s and `1`s. Two vertices are adjacent iff they differ in exactly one bit.
+
 * `iKnight()` creates the Knight's move graph on an (essentially) infinite chessboard. The vertices are pairs of integers (objects of type `Int`).
 
 

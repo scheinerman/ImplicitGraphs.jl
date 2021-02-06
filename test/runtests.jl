@@ -14,3 +14,6 @@ G = iCycle(10)
 
 G = iKnight()
 @test deg(G, (0, 0)) == 8
+
+G = iCube(4)
+@test dist(G,"0000","1111") == 4

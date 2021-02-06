@@ -1,4 +1,4 @@
-export iCycle, iPath, iGrid, iKnight
+export iCycle, iPath, iGrid, iKnight, iCube
 
 """
 `iCycle(n::Int)` creates an implicit graph that is
@@ -60,7 +60,7 @@ end
 of type `Tuple{Int,Int}`.
 """
 function iGrid()::ImplicitGraph{Tuple{Int,Int}}
-    yes(v::Tuple{Int,Int}) = true
+    yes(v::Tuple{Int,Int})::Bool = true
     function N(v::Tuple{Int,Int})::Vector{Tuple{Int,Int}}
         a, b = v
         return [(a, b - 1), (a, b + 1), (a - 1, b), (a + 1, b)]
@@ -73,7 +73,7 @@ end
 chessboard.
 """
 function iKnight()::ImplicitGraph{Tuple{Int,Int}}
-    yes(v::Tuple{Int,Int}) = true
+    yes(v::Tuple{Int,Int})::Bool = true
     function N(v::Tuple{Int,Int})::Vector{Tuple{Int,Int}}
         a, b = v
         neigh = [
@@ -89,4 +89,38 @@ function iKnight()::ImplicitGraph{Tuple{Int,Int}}
         return neigh
     end
     return ImplicitGraph{Tuple{Int,Int}}(yes, N)
+end
+
+"""
+`iCube(d::Int)` creates an (implict) `d`-dimensional cube graph.
+"""
+function iCube(d::Int)::ImplicitGraph{String}
+    if d < 1
+        error("Dimension must be positive")
+    end
+
+    function dvec_check(s::String)::Bool
+        if length(s) != d
+            return false
+        end
+        for i = 1:d
+            if s[i] ∉ "01"
+                return false
+            end
+        end
+        return true
+    end
+
+    function N(v::String)
+        result = Vector{String}(undef, d)
+        for i = 1:d
+            head = v[1:i-1]
+            c = v[i] == '0' ? "1" : "0"
+            tail = v[i+1:end]
+            result[i] = head * c * tail
+        end
+        return result
+    end
+
+    return ImplicitGraph{String}(dvec_check, N)
 end
