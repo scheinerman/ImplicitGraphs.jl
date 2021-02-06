@@ -113,6 +113,8 @@ julia> dist(G,(0,0),(3,5))
 8
 ```
 
-## To Do
+## Converstion to `SimpleGraph` or `SimpleDigraph`
 
-Create methods to return an induced subgraph of an `ImplicitGraph` as a `SimpleGraph` or a `SimpleDigraph`.
+An `ImplicitGraph` may be infinite and so there is no universal way to convert an `ImplicitGraph` to a `SimpleGraph` or `SimpleDigraph`. However, given a finite subset of the vertex, we can form the induced subgraph (or sub-digraph) on that subset.
+
+Code for this is in the file `src/conversion.jl`. It is not part of the `ImplicitGraphs` module. 

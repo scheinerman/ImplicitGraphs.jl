@@ -29,7 +29,7 @@ function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
     return in(w, G[v])
 end
 
-has(G::ImplicitGraph{T},v::T,w::T) where {T} = G[v,w]
+has(G::ImplicitGraph{T}, v::T, w::T) where {T} = G[v, w]
 
 """
 `deg(G::ImplicitGraph,v)` returns the degree of vertex `v`
