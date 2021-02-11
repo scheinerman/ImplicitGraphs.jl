@@ -57,6 +57,8 @@ We provide a few basic graphs that can be created using the following methods:
 
 * `iKnight()` creates the Knight's move graph on an (essentially) infinite chessboard. The vertices are pairs of integers (objects of type `Int`).
 
+* `iShift(alphabet, n::Int)` creates the shift digraph whose vertices are `n`-tuples of elements of `alphabet`.
+
 
 ## Inspection
 

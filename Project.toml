@@ -1,16 +1,19 @@
 name = "ImplicitGraphs"
 uuid = "aa20a09e-9376-456a-970d-31341b90bdf0"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 SimpleGraphs = "55797a34-41de-5266-9ec1-32ac4eb504d3"
+IterTools = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 
 [compat]
 julia = "1"
 DataStructures = "0.9, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18"
 SimpleGraphs = "0.7"
+IterTools = "1"
+
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

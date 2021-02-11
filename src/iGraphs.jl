@@ -1,4 +1,4 @@
-export iCycle, iPath, iGrid, iKnight, iCube
+export iCycle, iPath, iGrid, iKnight, iCube, iShift
 
 """
 `iCycle(n::Int, simple::Bool=true)` creates an implicit graph that is
@@ -114,3 +114,68 @@ function iCube(d::Int)::ImplicitGraph{String}
 
     return ImplicitGraph{String}(dvec_check, N)
 end
+
+
+
+using IterTools
+"""
+`iShift(alphabet,n)` creates an implicit shift digraph whose vertices 
+are `n`-tuples of elements of `alphabet`.
+"""
+function iShift(alphabet, n::Int)::ImplicitGraph
+    elts = collect(distinct(alphabet))
+    T = eltype(elts)
+
+    function has_vertex(v)::Bool
+        for i = 1:n
+            if v[i] ∉ elts
+                return false
+            end
+        end
+        return true
+    end
+
+    function N(v)
+        base = v[2:end]
+        result = [(base..., j) for j in elts]
+        return result
+    end
+
+    return ImplicitGraph{NTuple{n,T}}(has_vertex, N)
+end
+
+
+
+# """
+# `ShiftDigraph(alphabet,n)` creates a `SimpleDigraph` whose vertices
+# are all length-`n` tuples of the elements in `alphabet` (which can be
+# an array such as `[0,1]` or a string such as `"abc"`). An edge from
+# `u` to `v` corresponds to an element dropped from the first position
+# in `u` and another element added to the end yielding `v`. For example,
+# in `ShiftDigraph([0,1],5)` there are two edges leaving vertex
+# `(0,1,0,1,1)`; one goes to `(1,0,1,1,0)` and the other to
+# `(1,0,1,1,1)`.
+# """
+# function ShiftDigraph(alphabet = [0, 1], n::Int = 3)
+#     elts = collect(distinct(alphabet))
+#     vertex_iter = all_tuples(alphabet, n)
+#     vlist = collect(vertex_iter)
+#     T = typeof(vlist[1])
+#     G = SimpleDigraph{T}()
+#     for v in vlist
+#         add!(G, v)
+#     end
+
+#     # create edges here
+
+#     for v in vlist
+#         head = collect(IterTools.drop(v, 1))
+#         for c in elts
+#             w = tuple([head; c]...)
+#             add!(G, v, w)
+#         end
+#     end
+
+#     return G
+
+# end
