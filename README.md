@@ -45,11 +45,11 @@ G = ImplicitGraph{Int}(yes, N)
 
 We provide a few basic graphs that can be created using the following methods:
 
-* `iCycle(n::Int)` creates an undirected cycle with vertex set `{1,2,...,n}`.
+* `iCycle(n::Int)` creates an undirected cycle with vertex set `{1,2,...,n}`; 
+`iCycle(n,false)` creates a directed `n`-cycle.
 
-* `iPath(n::Int)` creates an undirected path with vertex set `{1,2,...,n}`.
-
-* `iPath()` creates an (essentially) infinite undirected path whose vertex set contains all integers (objects of type `Int`).
+* `iPath()` creates an (essentially) infinite undirected path whose vertex set contains all integers (objects of type `Int`);
+`iPath(false)` creates a one-way infinite path `⋯ → -2 → -1 → 0 → 1 → 2 → ⋯`.
 
 * `iGrid()` creates an (essentially) infinite grid whose vertices are ordered pairs of integers (objects of type `Int`).
 

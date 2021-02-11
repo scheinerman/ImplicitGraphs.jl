@@ -1,10 +1,12 @@
 export iCycle, iPath, iGrid, iKnight, iCube
 
 """
-`iCycle(n::Int)` creates an implicit graph that is
-a cycle graph with `n` vertices `1` through `n`.
+`iCycle(n::Int, simple::Bool=true)` creates an implicit graph that is
+a cycle graph with `n` vertices `1` through `n`. When `simple`
+is `true`, the graph is undirected; when `false` it's a directed 
+cycle `1 → 2 → 3 → ⋯ → n → 1`. 
 """
-function iCycle(n::Int)::ImplicitGraph{Int}
+function iCycle(n::Int, simple::Bool = true)::ImplicitGraph{Int}
     if n < 3
         error("Number of vertices must be at least 3")
     end
@@ -12,7 +14,10 @@ function iCycle(n::Int)::ImplicitGraph{Int}
     function N(v::Int)
         a = mod1(v + 1, n)
         b = mod1(v - 1, n)
-        return [b, a]
+        if simple
+            return [b, a]
+        end
+        return [a]
     end
 
     has_vertex(v::Int) = 1 <= v <= n
@@ -21,36 +26,21 @@ function iCycle(n::Int)::ImplicitGraph{Int}
 end
 
 """
-`iPath(n::Int)` creates an implicit graph that is
-a path graph with `n` vertices `1` through `n`.
-
-`iPath()` creates an implicit graph that is 
-a path graph on the integers.
+`iPath(simple::Bool=true)` creates an implicit graph that is 
+a path graph on the integers. If `simple` is `true` vertex `v` is 
+has an edge to `v-1` and `v+1`; otherwise, `v` has an edge only to 
+`v+1`.
 """
-function iPath(n::Int)::ImplicitGraph{Int}
-    if n < 1
-        error("Number of vertices must be at least 1")
-    end
+function iPath(simple::Bool = false)::ImplicitGraph{Int}
+    yes(v::Int)::Bool = true
 
     function N(v::Int)::Vector{Int}
-        if v == 1
-            return [2]
+        if simple
+            return [v - 1, v + 1]
+        else
+            return [v + 1]
         end
-        if v == n
-            return [n - 1]
-        end
-        return [v - 1, v + 1]
     end
-
-    has_vertex(v::Int)::Bool = 1 <= v <= n
-
-    return ImplicitGraph{Int}(has_vertex, N)
-end
-
-
-function iPath()::ImplicitGraph{Int}
-    N(v::Int)::Vector{Int} = [v - 1, v + 1]
-    yes(v::Int)::Bool = true
     return ImplicitGraph{Int}(yes, N)
 end
 
