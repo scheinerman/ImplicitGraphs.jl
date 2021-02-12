@@ -19,7 +19,7 @@ where
 * `has_vertex(v::T)::Bool` is a function that takes objects of type `T` as input and returns `true` if `v` is a vertex of the graph.
 * `out_neighbors(v::T)::Vector{T}` is a function that takes objects of type `T` as input and returns a list of the (out) neighbors of `v`.
 
-For example, the following creates an (essentially) infinite path whose vertices are integers (see also the `iPath` function):
+For example, the following creates an (essentially) infinite path whose vertices are integers (see the `iPath` function):
 ```julia
 yes(v::Int)::Bool = true 
 N(v::Int)::Vector{Int} = [v-1, v+1]
