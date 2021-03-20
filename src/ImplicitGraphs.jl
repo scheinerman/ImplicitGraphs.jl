@@ -8,6 +8,14 @@ import Base: getindex, show, eltype
 import SimpleGraphs: deg, find_path, dist, has
 export deg, find_path, dist, has
 
+
+"""
+`ImplicitGraph{T}(has_vertex, out_neighbors)` constructs a new `ImplicitGraph`
+whose vertices have type `T`. 
+* `has_vertex(v::T)::Bool` is a function that checks if `v` is in the graph.
+* `out_neighbors(v::T)::Vector{T}` is a function that takes an object `v` of
+type `T` and returns a list of `v`'s out neighbors. 
+"""
 struct ImplicitGraph{T}
     has_vertex::Function
     out_neighbors::Function
