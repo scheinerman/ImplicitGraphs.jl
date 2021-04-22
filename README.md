@@ -117,8 +117,25 @@ julia> dist(G,(0,0),(3,5))
 8
 ```
 
-## Conversion to `SimpleGraph` or `SimpleDigraph`
+<hr/>
+
+## Extras
+
+The `extras` directory contains the following additional functions.
+
+### Conversion to `SimpleGraph` or `SimpleDigraph`
 
 An `ImplicitGraph` may be infinite and so there is no universal way to convert an `ImplicitGraph` to a `SimpleGraph` or `SimpleDigraph`. However, given a finite subset of the vertex, we can form the induced subgraph (or sub-digraph) on that subset.
 
-Code for this is in the file `src/conversion.jl`. It is not part of the `ImplicitGraphs` module. 
+Code for this is in the file `extras/conversion.jl`. It is not part of the `ImplicitGraphs` module. 
+
+### iPaley
+
+The file `extras/iPaley.jl` contains the `iPaley` function for creating an 
+implicit Paley graph. In particular, `iPaley(p)` (where `p` is a prime congruennt
+to 1 modulo 4) creates a graph with vertex set `0:p-1` in which two vertices are
+adjacent iff their difference is a quadratic residue modulo `p`.
+
+### iTransposition
+
+Please stand by.
