@@ -138,4 +138,9 @@ adjacent iff their difference is a quadratic residue modulo `p`.
 
 ### iTransposition
 
-Please stand by.
+The function `iTransposition(n)` creates an `ImplicitGraph` whose vertices
+are all permutation of `1:n`. Two vertices of this graph are adjacent iff
+they differ by a transposition.
+
+* `iTransposition(n,true)` [default] only considers transpositions of the form `(a,a+1)` where `0 < a < n`.
+* `iTransposition(n,false)` considers all transpositions `(a,b)` where `0<a<b≤n`.
