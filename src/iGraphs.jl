@@ -31,7 +31,7 @@ a path graph on the integers. If `simple` is `true` vertex `v` is
 has an edge to `v-1` and `v+1`; otherwise, `v` has an edge only to 
 `v+1`.
 """
-function iPath(simple::Bool = false)::ImplicitGraph{Int}
+function iPath(simple::Bool = true)::ImplicitGraph{Int}
     yes(v::Int)::Bool = true
 
     function N(v::Int)::Vector{Int}

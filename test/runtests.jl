@@ -9,6 +9,8 @@ G = iGrid()
 G = iCycle(10)
 @test has(G, 1, 10)
 
+@test length(find_path(G, 1, 5)) == 5
+
 G = iCycle(10, false)
 @test !has(G, 1, 10)
 
@@ -21,3 +23,11 @@ G = iCube(4)
 
 G = iShift([1, 2, 3], 5)
 @test deg(G, (1, 1, 1, 1, 1)) == 3
+
+
+G = iKnight()
+s = (5, 5)
+t = (0, 0)
+score(vw) = sum(abs.(vw))
+P = guided_path_finder(G, s, t, score = score, depth = 2)
+@test length(P) > 0

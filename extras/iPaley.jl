@@ -10,15 +10,15 @@ The vertices of the graph are integers in the range
 is a quadratic residue mod `p`.
 """
 function iPaley(p::Int)::ImplicitGraph
-    if !isprime(p) || p%4 != 1
+    if !isprime(p) || p % 4 != 1
         error("Argument ($p) must be prime and congruent to 1 mod 4")
     end
 
-    vcheck(v::Int) = 0 <= v < p 
+    vcheck(v::Int) = (0 <= v < p)
 
     function outs(v::Int)
-        return unique((v + k^2)%p for k=1:p-1)
+        return unique((v + k^2) % p for k = 1:p-1)
     end
 
-    return ImplicitGraph{Int}(vcheck,outs)
+    return ImplicitGraph{Int}(vcheck, outs)
 end

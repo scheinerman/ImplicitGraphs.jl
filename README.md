@@ -93,6 +93,8 @@ julia> deg(G,(5,0))
 
 ## Path Finding
 
+### Shortest path
+
 The function `find_path` finds a shortest path between vertices of a graph. This function may run without returning if the graph is infinite and disconnected.
 ```julia
 julia> G = iGrid()
@@ -116,6 +118,61 @@ The function `dist` returns the length of a shortest path between vertices in th
 julia> dist(G,(0,0),(3,5))
 8
 ```
+
+### Guided path finding
+
+The function `guided_path_finder` employs a score function to try to find a 
+path between vertices. It may be faster than `find_path`, but might not give a shortest path.
+
+This function is called as follows: `guided_path_finder(G,s,t,score=sc, depth=d)` where
+* `G` is an `ImplicitGraph`,
+* `s` is the starting vertex of the desired path,
+* `t` is the ending vertex of the desired path,
+* `sc` is a score function that mapping vertices to integers and should get smaller as vertices get closer to `t` (and should minimize at `t`), and
+* `d` controls amount of look ahead (default is `1`).
+
+```julia
+julia> G = iKnight();
+
+julia> s = (9,9); t = (0,0);
+
+julia> sc(v) = sum(abs.(v));  # score of (a,b) is |a| + |b|
+
+julia> guided_path_finder(G,s,t,score=sc,depth=1)
+9-element Vector{Tuple{Int64, Int64}}:
+ (9, 9)
+ (8, 7)
+ (7, 5)
+ (6, 3)
+ (5, 1)
+ (3, 0)
+ (1, -1)
+ (-1, -2)
+ (0, 0)
+
+# With better look-ahead we find a shorter path
+
+julia> guided_path_finder(G,s,t,score=sc,depth=3)
+7-element Vector{Tuple{Int64, Int64}}:
+ (9, 9)
+ (8, 7)
+ (7, 5)
+ (6, 3)
+ (4, 2)
+ (2, 1)
+ (0, 0)
+```
+Greater depth can find a shorter path, but that comes at a cost:
+```julia
+julia> using BenchmarkTools
+
+julia> @btime guided_path_finder(G,s,t,score=sc,depth=1);
+  52.361 μs (1308 allocations: 81.05 KiB)
+
+julia> @btime guided_path_finder(G,s,t,score=sc,depth=3);
+  407.546 μs (8691 allocations: 696.47 KiB)
+```
+
 
 <hr/>
 

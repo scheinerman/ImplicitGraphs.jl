@@ -61,5 +61,6 @@ end
 
 include("iGraphs.jl")
 include("find_path.jl")
+include("guided_path_finder.jl")
 
 end # module
