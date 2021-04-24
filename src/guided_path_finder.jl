@@ -43,7 +43,7 @@ function guided_path_finder(
     t::T;
     score::Function = x -> 1,
     depth::Int = 1,
-    verbose::Int = 0
+    verbose::Int = 0,
 )::Vector{T} where {T}
 
 
@@ -69,13 +69,19 @@ function guided_path_finder(
 
         if score(v) < best_score
             best_score = score(v)
-            best_vtx = v 
+            best_vtx = v
         end
 
-        if verbose > 0 && count%verbose == 0
+        if verbose > 0 && count % verbose == 0
             println("Iteration = $count")
-            println("Best score = $best_score")
-            println(best_vtx)
+            println("Queue size = $(length(PQ))")
+            println("$(length(visited)) nodes visited")
+
+            println("Current state")
+            println(v)
+            println(
+                "Score = $(score(v))\t trying for $(score(t))\t with best so far $best_score\n\n",
+            )
         end
 
         if v == t

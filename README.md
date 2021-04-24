@@ -124,12 +124,13 @@ julia> dist(G,(0,0),(3,5))
 The function `guided_path_finder` employs a score function to try to find a 
 path between vertices. It may be faster than `find_path`, but might not give a shortest path.
 
-This function is called as follows: `guided_path_finder(G,s,t,score=sc, depth=d)` where
+This function is called as follows: `guided_path_finder(G,s,t,score=sc, depth=d, verbose=0)` where
 * `G` is an `ImplicitGraph`,
 * `s` is the starting vertex of the desired path,
 * `t` is the ending vertex of the desired path,
-* `sc` is a score function that mapping vertices to integers and should get smaller as vertices get closer to `t` (and should minimize at `t`), and
-* `d` controls amount of look ahead (default is `1`).
+* `sc` is a score function that mapping vertices to integers and should get smaller as vertices get closer to `t` (and should minimize at `t`), 
+* `d` controls amount of look ahead (default is `1`), and 
+* `verbose` sets how often to print progess information (or `0` for no diagnostics).
 
 ```julia
 julia> G = iKnight();
