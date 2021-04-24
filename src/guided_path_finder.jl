@@ -75,8 +75,6 @@ function guided_path_finder(
         if verbose > 0 && count % verbose == 0
             println("Iteration = $count")
             println("Queue size = $(length(PQ))")
-            println("$(length(visited)) nodes visited")
-
             println("Current state")
             println(v)
             println(
