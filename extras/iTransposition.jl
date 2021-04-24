@@ -24,3 +24,5 @@ function iTransposition(n::Int, adjacent::Bool = true)
 
     return ImplicitGraph{Permutation}(vcheck, outs)
 end
+
+

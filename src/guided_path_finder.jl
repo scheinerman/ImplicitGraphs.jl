@@ -31,7 +31,11 @@ Find a path from vertex `s` to vertex `t` in an `ImplicitGraph` `G`.
    as vertices get closer to `t`. Ideally, `score(t)` should be the smallest 
    possible value.
 
-* `depth` controls the amount of look ahead as we explore each vertex. The default value is `1`.
+* `depth` controls the amount of look ahead as we explore each vertex. 
+  The default value is `1`.
+
+* `verbose` controls how often status information is printed. Use `0` for 
+  no information.
 """
 function guided_path_finder(
     G::ImplicitGraph{T},
@@ -39,6 +43,7 @@ function guided_path_finder(
     t::T;
     score::Function = x -> 1,
     depth::Int = 1,
+    verbose::Int = 0
 )::Vector{T} where {T}
 
 
@@ -53,11 +58,30 @@ function guided_path_finder(
         return [t]
     end
 
+    best_vtx = s
+    best_score = score(s)
+
+    count = 0
+
     while length(PQ) > 0
+        count += 1
         v = dequeue!(PQ)
+
+        if score(v) < best_score
+            best_score = score(v)
+            best_vtx = v 
+        end
+
+        if verbose > 0 && count%verbose == 0
+            println("Iteration = $count")
+            println("Best score = $best_score")
+            println(best_vtx)
+        end
+
         if v == t
             break
         end
+
         push!(visited, v)
 
         edges = _edge_generator(G, v, depth)
@@ -79,6 +103,10 @@ function guided_path_finder(
             break
         end
         push!(rev_path, trace_back[x])
+    end
+
+    if verbose > 0
+        println("Finished after $count iterations")
     end
 
     return reverse(rev_path)
