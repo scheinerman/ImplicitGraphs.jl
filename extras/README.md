@@ -59,6 +59,19 @@ julia> CoxeterDecomposition(p)
 Permutation of 1:10: (2,3)(3,4)(2,3)(5,6)(4,5)(6,7)(5,6)(4,5)(3,4)(2,3)(7,8)(6,7)(5,6)(8,9)(7,8)(6,7)(5,6)(4,5)(3,4)(9,10)(8,9)(7,8)(6,7)(5,6)
 ```
 
+We include the adjective *crazy* in the function name because it is much slower and 
+memory intensive than `CoxeterDecomposition`:
+```julia
+julia> using BenchmarkTools
+
+julia> p = RandomPermutation(30);
+
+julia> @btime CoxeterDecomposition(p);
+  384.528 μs (11 allocations: 5.25 KiB)
+
+julia> @btime crazy_trans_product(p,true);
+  109.266 ms (387316 allocations: 63.06 MiB)
+```
 
 
 
