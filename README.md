@@ -175,30 +175,9 @@ julia> @btime guided_path_finder(G,s,t,score=sc,depth=3);
 ```
 
 
-<hr/>
 
 ## Extras
 
-The `extras` directory contains the following additional functions.
-
-### Conversion to `SimpleGraph` or `SimpleDigraph`
-
-An `ImplicitGraph` may be infinite and so there is no universal way to convert an `ImplicitGraph` to a `SimpleGraph` or `SimpleDigraph`. However, given a finite subset of the vertex, we can form the induced subgraph (or sub-digraph) on that subset.
-
-Code for this is in the file `extras/conversion.jl`. It is not part of the `ImplicitGraphs` module. 
-
-### iPaley
-
-The file `extras/iPaley.jl` contains the `iPaley` function for creating an 
-implicit Paley graph. In particular, `iPaley(p)` (where `p` is a prime congruennt
-to 1 modulo 4) creates a graph with vertex set `0:p-1` in which two vertices are
-adjacent iff their difference is a quadratic residue modulo `p`.
-
-### iTransposition
-
-The function `iTransposition(n)` creates an `ImplicitGraph` whose vertices
-are all permutation of `1:n`. Two vertices of this graph are adjacent iff
-they differ by a transposition.
-
-* `iTransposition(n,true)` [default] only considers transpositions of the form `(a,a+1)` where `0 < a < n`.
-* `iTransposition(n,false)` considers all transpositions `(a,b)` where `0<a<b≤n`.
+The `extras` directory contains additional code and examples that may be 
+useful in conjunction with the `ImplicitGraph` type. See the `README` 
+in that directory.
