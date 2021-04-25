@@ -73,7 +73,5 @@ function crazy_trans_product(p::Permutation, adjacent::Bool = true)::String
 
     Q = [P[k]' * P[k+1] for k = 1:nP-1]
 
-    println(p == prod(Q))
-
     prod(trans_string(Q[j]) for j = 1:length(Q))
 end
