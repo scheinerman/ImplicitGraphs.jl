@@ -25,4 +25,55 @@ function iTransposition(n::Int, adjacent::Bool = true)
     return ImplicitGraph{Permutation}(vcheck, outs)
 end
 
+"""
+    trans_string(p::Permutation)
 
+We assume that `p` is a transposition. 
+"""
+function trans_string(p::Permutation)::String
+    n = length(p)
+    FP = fixed_points(p)
+    @assert n == length(FP) + 2 "Permutation must be a transposition"
+    elts = sort(setdiff(1:n, FP))
+    a, b = elts
+    return "($a,$b)"
+end
+
+"""
+    pscore(p::Permutation)::Int
+
+Measures the extent to which `p` is different from the identity permutation 
+using this formula:
+
+`sum(abs(p[k]-k) for k=1:length(p))`
+"""
+function pscore(p::Permutation)::Int
+    n = length(p)
+    sum(abs(i - p(i)) for i = 1:n)
+end
+
+"""
+    crazy_trans_product(p::Permutation, adjacent::Bool=true)::String
+
+Express `p` as the product of transpositions. With `adjacent=true` the transpositions 
+are all of the form `(a,a+1)`; otherwise, all possible transpositions are allowed.
+
+Result is expressed as a `String`.
+"""
+function crazy_trans_product(p::Permutation, adjacent::Bool = true)::String
+    n = length(p)
+    G = iTransposition(n, adjacent)
+    P = reverse(guided_path_finder(G, p, Permutation(n), score = pscore))
+
+    nP = length(P)
+
+    if nP == 1
+        return "()"
+    end
+
+    Q = [P[k]' * P[k+1] for k = 1:nP-1]
+
+    println(p == prod(Q))
+
+    prod(trans_string(Q[j]) for j = 1:length(Q))
+end
