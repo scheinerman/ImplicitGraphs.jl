@@ -1,14 +1,16 @@
 using SimpleGraphs, ImplicitGraphs
 
-import SimpleGraphs: SimpleGraph, SimpleDigraph
+import SimpleGraphs: UndirectedGraph, DirectedGraph
 
 
 """
-`SimpleGraph(G::ImplicitGraph,A)` returns the induced `SimpleGraph` 
+    UndirectedGraph(G::ImplicitGraph{T}, A) where {T}
+
+returns the induced `UndirectedGraph` 
 of `G` with vertices in the collection `A`.
 """
-function SimpleGraph(G::ImplicitGraph{T}, A) where {T}
-    H = SimpleGraph{T}()
+function UndirectedGraph(G::ImplicitGraph{T}, A) where {T}
+    H = UG{T}()
     for v in A
         if has(G, v)
             add!(H, v)
@@ -26,11 +28,13 @@ end
 
 
 """
-`SimpleDigraph(G::ImplicitGraph,A)` returns the induced `SimpleDigraph` 
+    DirectedGraph(G::ImplicitGraph{T}, A) where {T}
+
+Returns the induced `DirectedGraph` 
 of `G` with vertices in the collection `A`.
 """
-function SimpleDigraph(G::ImplicitGraph{T}, A) where {T}
-    D = SimpleDigraph{T}()
+function DirectedGraph(G::ImplicitGraph{T}, A) where {T}
+    D = DG{T}()
     for v in A
         if has(G, v)
             add!(D, v)
