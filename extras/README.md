@@ -6,13 +6,14 @@ This directory contains additional code and examples associated with the `Implic
 
 
 
-An `ImplicitGraph` may be infinite and so there is no universal way to convert an `ImplicitGraph` to a `SimpleGraph` or `SimpleDigraph`. However, given a finite subset of the vertices, we can form the induced subgraph (or sub-digraph) on that subset.
+An `ImplicitGraph` may be infinite and so there is no universal way to convert an `ImplicitGraph` to an `UndirectedGraph` or a `DirectedGraph`. However, given a finite subset of the vertices, we can form the induced subgraph (or sub-digraph) on that subset.
 
-* `SimpleGraph(G::ImplicitGraph, A)` returns an undirected graph (type `SimpleGraph`) whose 
+* `UndirectedGraph(G::ImplicitGraph, A)` returns an undirected graph 
+  (type `UndirectedGraph`) whose 
   vertex set is `A` and is the induced subgraph of `G` on that set.
 
-* Likewise, `SimpleDigraph(G::ImplicitGraph, A)` returns a directed graph 
-  (type `SimpleDigraph`).
+* Likewise, `DirectedGraph(G::ImplicitGraph, A)` returns a directed graph 
+  (type `DirectedGraph`).
 
 
 
