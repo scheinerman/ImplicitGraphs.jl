@@ -99,4 +99,22 @@ julia> find_path(G,12,1)
   1
 ```
 
+The function `ReverseCollatz()` is the same as `Collatz()` except the edges are reversed.
+
+```
+julia> H = ReverseCollatz();
+
+julia> find_path(H,1,12)
+10-element Vector{Int64}:
+  1
+  2
+  4
+  8
+ 16
+  5
+ 10
+  3
+  6
+ 12
+ ```
 
