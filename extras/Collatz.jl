@@ -21,3 +21,23 @@ function Collatz()::ImplicitGraph{Int}
 
     return ImplicitGraph{Int}(vcheck, outs)
 end
+
+"""
+    ReverseCollatz()::ImplicitGraph{Int}
+
+This is the same as `Collatz()` except the edges are reversed. 
+"""
+function ReverseCollatz()::ImplicitGraph{Int}
+    vcheck(v::Int) = v > 0
+    function outs(v::Int)
+        out_list = [2v]
+        if v % 3 == 1   # v = 3x+1
+            x = div(v - 1, 3)
+            if x % 2 == 1
+                push!(out_list, x)
+            end
+        end
+        return out_list
+    end
+    return ImplicitGraph{Int}(vcheck, outs)
+end
