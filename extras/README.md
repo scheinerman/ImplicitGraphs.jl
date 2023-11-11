@@ -40,7 +40,7 @@ The function is invoked as
 `crazy_trans_product(p::Permutation, adjacent::Bool=true)::String`
 
 Example:
-```julia
+```
 julia> p = RandomPermutation(10)
 (1)(2,7,8,6,3,9)(4)(5,10)
 
@@ -54,14 +54,14 @@ true
 ```
 
 An analogous result is given by `CoxeterDecomposition`:
-```julia
+```
 julia> CoxeterDecomposition(p)
 Permutation of 1:10: (2,3)(3,4)(2,3)(5,6)(4,5)(6,7)(5,6)(4,5)(3,4)(2,3)(7,8)(6,7)(5,6)(8,9)(7,8)(6,7)(5,6)(4,5)(3,4)(9,10)(8,9)(7,8)(6,7)(5,6)
 ```
 
 We include the adjective *crazy* in the function name because it is much slower and 
 memory intensive than `CoxeterDecomposition`:
-```julia
+```
 julia> using BenchmarkTools
 
 julia> p = RandomPermutation(30);
@@ -73,6 +73,29 @@ julia> @btime crazy_trans_product(p,true);
   109.266 ms (387316 allocations: 63.06 MiB)
 ```
 
+## `Collatz.jl`
 
+The function `Collatz()` returns a directed graph represenation of the Collatz 3x+1 problem.
+
+The vertices of the graph are positive integers. For a vertex `n`
+there is exactly one edge emerging from `n` pointing either to
+`n÷2` if `n` is even or to `3n+1` if `n` is odd.
+
+```
+julia> G = Collatz();
+
+julia> find_path(G,12,1)
+10-element Vector{Int64}:
+ 12
+  6
+  3
+ 10
+  5
+ 16
+  8
+  4
+  2
+  1
+```
 
 

@@ -1,8 +1,5 @@
 # ImplicitGraphs
 
-[![Build Status](https://travis-ci.com/scheinerman/ImplicitGraphs.jl.svg?branch=main)](https://travis-ci.com/scheinerman/ImplicitGraphs.jl)
-
-
 An `ImplicitGraph` is a graph in which the vertices and edges are implicitly defined by two functions: one that tests for vertex membership and one that returns a list of the (out) neighbors of a vertex. 
 
 The vertex set of an `ImplicitGraph` may be finite or (implicitly) infinite. The (out) degrees, however, must be finite.
@@ -11,7 +8,7 @@ The vertex set of an `ImplicitGraph` may be finite or (implicitly) infinite. The
 
 
 An `ImplicitGraph` is defined as follows:
-```julia
+```
 ImplicitGraph{T}(has_vertex, out_neighbors)
 ```
 where 
@@ -20,7 +17,7 @@ where
 * `out_neighbors(v::T)::Vector{T}` is a function that takes objects of type `T` as input and returns a list of the (out) neighbors of `v`.
 
 For example, the following creates an (essentially) infinite path whose vertices are integers (see the `iPath` function):
-```julia
+```
 yes(v::Int)::Bool = true 
 N(v::Int)::Vector{Int} = [v-1, v+1]
 G = ImplicitGraph{Int}(yes, N)
@@ -34,7 +31,7 @@ Note that if `v` is an element of its own neighbor set, that represents a loop a
 The user-supplied `out_neighbors` function can be used to create both undirected and directed graphs. If an undirected graph is intended, be sure that if `{v,w}` is an edge of the graph, then `w` will be in the list returned by `out_neighbors(v)` and `v` will be in the list returned by `out_neighbors(w)`.
 
 To create an infinite *directed* path, the earlier example can be modified like this:
-```julia
+```
 yes(v::Int)::Bool = true 
 N(v::Int)::Vector{Int} = [v+1]
 G = ImplicitGraph{Int}(yes, N)
@@ -70,7 +67,7 @@ We provide a few basic graphs that can be created using the following methods:
 
 * To get the degree of a vertex in a graph, use `deg(G,v)`.
 
-```julia
+```
 julia> G = iGrid()
 ImplicitGraph{Tuple{Int64,Int64}}
 
@@ -96,7 +93,7 @@ julia> deg(G,(5,0))
 ### Shortest path
 
 The function `find_path` finds a shortest path between vertices of a graph. This function may run without returning if the graph is infinite and disconnected.
-```julia
+```
 julia> G = iGrid()
 ImplicitGraph{Tuple{Int64,Int64}}
 
@@ -114,7 +111,7 @@ julia> find_path(G,(0,0), (3,5))
 ```
 
 The function `dist` returns the length of a shortest path between vertices in the graph.
-```julia
+```
 julia> dist(G,(0,0),(3,5))
 8
 ```
@@ -132,7 +129,7 @@ This function is called as follows: `guided_path_finder(G,s,t,score=sc, depth=d,
 * `d` controls amount of look ahead (default is `1`), and 
 * `verbose` sets how often to print progess information (or `0` for no diagnostics).
 
-```julia
+```
 julia> G = iKnight();
 
 julia> s = (9,9); t = (0,0);
@@ -164,7 +161,7 @@ julia> guided_path_finder(G,s,t,score=sc,depth=3)
  (0, 0)
 ```
 Greater depth can find a shorter path, but that comes at a cost:
-```julia
+```
 julia> using BenchmarkTools
 
 julia> @btime guided_path_finder(G,s,t,score=sc,depth=1);
