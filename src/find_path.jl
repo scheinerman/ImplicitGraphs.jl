@@ -1,38 +1,45 @@
 export find_path, dist
 
 """
-`find_path(G::ImplicitGraph,s,t)` finds a shortest path from `s` to `t`. 
-"""
-function find_path(G::ImplicitGraph{T}, s::T, t::T) where {T}
+`find_path(G::ImplicitGraph{T}, s::T, is_target::Function, stop_length::Int=0) where {T}`
 
-    if !has(G, s) || !has(G, t)
-        error("Source and/or target vertex is not in this graph")
-    end
-    if s == t
+Finds a shortest path from `s` to any vertex for which `is_target`
+returns `true`.
+Optionally, we include a length `stop_length` at which the search
+stops, to avoid exponential memory usage. 
+"""
+function find_path(G::ImplicitGraph{T}, s::T, is_target::Function, stop_length::Int=0) where {T}
+
+    if is_target(s)
         return [s]
     end
 
     # set up a queue for vertex exploration
-    Q = Queue{T}()
-    enqueue!(Q, s)
+    Q = Queue{Tuple{T, Int}}()
+    enqueue!(Q, (s, 0))
 
     # set up trace-back dictionary
     tracer = Dict{T,T}()
     tracer[s] = s
 
     while length(Q) > 0
-        v = dequeue!(Q)
+        v, l = dequeue!(Q)
         Nv = G[v]
+
+        if (stop_length > 0) && (l == stop_length)
+            continue
+        end
+
         for w in Nv
             if haskey(tracer, w)
                 continue
             end
             tracer[w] = v
-            enqueue!(Q, w)
+            enqueue!(Q, (w, l + 1))
 
-            if w == t  # success!
+            if is_target(w)  # success!
                 path = Array{T}(undef, 1)
-                path[1] = t
+                path[1] = w
                 while path[1] != s
                     v = tracer[path[1]]
                     pushfirst!(path, v)
@@ -43,6 +50,18 @@ function find_path(G::ImplicitGraph{T}, s::T, t::T) where {T}
         end
     end
     return T[]   # return empty array if no path found
+end
+
+"""
+`find_path(G::ImplicitGraph,s,t)` finds a shortest path from `s` to `t`. 
+"""
+function find_path(G::ImplicitGraph{T}, s::T, t::T, stop_length::Int=0) where {T}
+
+    if !has(G, s) || !has(G, t)
+        error("Source and/or target vertex is not in this graph")
+    end
+
+    find_path(G, s, isequal(t), stop_length)
 end
 
 dist(G::ImplicitGraph{T}, s::T, t::T) where {T} = length(find_path(G, s, t)) - 1
