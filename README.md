@@ -118,19 +118,19 @@ julia> dist(G, (0, 0), (3, 5))
 
 #### Option: abstract target vertices
 
-Optionally, instead of a target vertex whose type is the same as other vertices of the `ImplicitGraph`, we can call `find_path` with the signature
+Optionally, instead of a single target vertex whose type is the same as other vertices of the `ImplicitGraph`, we can call `find_path` with this signature:
 ```
 find_path(G::ImplicitGraph{T}, s::T, is_target::Function) where {T}
 ```
-The function `is_target` is expected to take a vertex of `G` as its only argument and return a `Bool` which is `true` if the vertex is a target. In this way, we can search for a path from the source vertex to one of many target vertices, or any vertex with a specified property.
+The function `is_target` is expected to take a vertex of `G` as its only argument and return a `Bool` which is `true` if the vertex is a target. In this way, we can search for a path from the source vertex to one of many target vertices, or a vertex with a specified property.
 
 #### Option: cutoff depth
 
-Path finding can consume an amout of memory which is exponential in the length of the path, which can crash Julia. To avoid this, we can call `find_path` with the signature
+Path finding can consume an amout of memory that is exponential in the length of the path, which can crash Julia. To avoid this, we can call `find_path` with this signature:
 ```
 find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
 ```
-Paths with length `cutoff_depth` will be found, but attempting to find a longer path results in an empty output (as if the path did not exist):
+Paths with length at most `cutoff_depth` will be found, but attempting to find a longer path results in an empty output (as if the path did not exist):
 
 ```
 julia> G = iGrid()
