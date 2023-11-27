@@ -131,7 +131,6 @@ Path finding can consume an amout of memory that is exponential in the length of
 find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
 ```
 Paths with length at most `cutoff_depth` will be found, but attempting to find a longer path results in an empty output (as if the path did not exist):
-
 ```
 julia> G = iGrid()
 ImplicitGraph{Tuple{Int64,Int64}}
@@ -151,6 +150,9 @@ julia> find_path(G, (0, 0), (3, 5), 8)
 julia> IG.find_path(G, (0, 0), (3, 5), 7)
 Tuple{Int64, Int64}[]
 ```
+
+> **Note**: Setting `cutoff_depth` to `0` allows a search for paths of unlimited length; only
+positive values limit the length. 
 
 ### Guided path finding
 
