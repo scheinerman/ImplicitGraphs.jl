@@ -95,10 +95,10 @@ julia> deg(G,(5,0))
 The function `find_path` finds a shortest path between vertices of a graph. This function may run without returning if the graph is infinite and disconnected.
 ```
 julia> G = iGrid()
-ImplicitGraph{Tuple{Int64,Int64}}
+ImplicitGraph{Tuple{Int64, Int64}}
 
-julia> find_path(G,(0,0), (3,5))
-9-element Array{Tuple{Int64,Int64},1}:
+julia> find_path(G, (0, 0), (3, 5))
+9-element Array{Tuple{Int64, Int64}, 1}:
  (0, 0)
  (0, 1)
  (0, 2)
@@ -112,8 +112,44 @@ julia> find_path(G,(0,0), (3,5))
 
 The function `dist` returns the length of a shortest path between vertices in the graph.
 ```
-julia> dist(G,(0,0),(3,5))
+julia> dist(G, (0, 0), (3, 5))
 8
+```
+
+#### Option: abstract target vertices
+
+Optionally, instead of a target vertex whose type is the same as other vertices of the `ImplicitGraph`, we can call `find_path` with the signature
+```
+find_path(G::ImplicitGraph{T}, s::T, is_target::Function) where {T}
+```
+The function `is_target` is expected to take a vertex of `G` as its only argument and return a `Bool` which is `true` if the vertex is a target. In this way, we can search for a path from the source vertex to one of many target vertices, or any vertex with a specified property.
+
+#### Option: cutoff depth
+
+Path finding can consume an amout of memory which is exponential in the length of the path, which can crash Julia. To avoid this, we can call `find_path` with the signature
+```
+find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
+```
+Paths with length `cutoff_depth` will be found, but attempting to find a longer path results in an empty output (as if the path did not exist):
+
+```
+julia> G = iGrid()
+ImplicitGraph{Tuple{Int64,Int64}}
+
+julia> find_path(G, (0, 0), (3, 5), 8)
+9-element Array{Tuple{Int64 ,Int64}, 1}:
+ (0, 0)
+ (0, 1)
+ (0, 2)
+ (0, 3)
+ (0, 4)
+ (0, 5)
+ (1, 5)
+ (2, 5)
+ (3, 5)
+
+julia> IG.find_path(G, (0, 0), (3, 5), 7)
+Tuple{Int64, Int64}[]
 ```
 
 ### Guided path finding

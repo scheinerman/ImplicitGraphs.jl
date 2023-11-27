@@ -1,14 +1,14 @@
 export find_path, dist
 
 """
-`find_path(G::ImplicitGraph{T}, s::T, is_target::Function, stop_length::Int=0) where {T}`
+`find_path(G::ImplicitGraph{T}, s::T, is_target::Function, cutoff_depth::Int=0) where {T}`
 
 Finds a shortest path from `s` to any vertex for which `is_target`
 returns `true`.
-Optionally, we include a length `stop_length` at which the search
-stops, to avoid exponential memory usage. 
+Optionally, we include a `cutoff_depth` at which the search stops, to
+avoid exponential memory usage. 
 """
-function find_path(G::ImplicitGraph{T}, s::T, is_target::Function, stop_length::Int=0) where {T}
+function find_path(G::ImplicitGraph{T}, s::T, is_target::Function, cutoff_depth::Int=0) where {T}
 
     if is_target(s)
         return [s]
@@ -26,7 +26,7 @@ function find_path(G::ImplicitGraph{T}, s::T, is_target::Function, stop_length::
         v, l = dequeue!(Q)
         Nv = G[v]
 
-        if (stop_length > 0) && (l == stop_length)
+        if (cutoff_depth != 0) && (l == cutoff_depth)
             continue
         end
 
@@ -55,13 +55,13 @@ end
 """
 `find_path(G::ImplicitGraph,s,t)` finds a shortest path from `s` to `t`. 
 """
-function find_path(G::ImplicitGraph{T}, s::T, t::T, stop_length::Int=0) where {T}
+function find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
 
     if !has(G, s) || !has(G, t)
         error("Source and/or target vertex is not in this graph")
     end
 
-    find_path(G, s, isequal(t), stop_length)
+    find_path(G, s, isequal(t), cutoff_depth)
 end
 
 dist(G::ImplicitGraph{T}, s::T, t::T) where {T} = length(find_path(G, s, t)) - 1
