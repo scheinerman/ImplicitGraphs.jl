@@ -116,6 +116,10 @@ julia> dist(G, (0, 0), (3, 5))
 8
 ```
 
+For large undirected graphs, you may find that `find_path_undirected` runs faster.
+It uses bidirectional search to reduce memory usage and runtime. It does not support
+directed graphs, however.
+
 #### Option: abstract target vertices
 
 Optionally, instead of a single target vertex whose type is the same as other vertices of the `ImplicitGraph`, we can call `find_path` with this signature:
