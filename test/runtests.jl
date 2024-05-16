@@ -10,6 +10,7 @@ G = iCycle(10)
 @test has(G, 1, 10)
 
 @test length(find_path(G, 1, 5)) == 5
+@test length(find_path_undirected(G, 1, 5)) == 5
 
 G = iCycle(10, false)
 @test !has(G, 1, 10)
@@ -38,4 +39,5 @@ G = iGrid()
 
 # cutoff depth
 @test find_path(G, (0, 0), (3, 5), 8) == find_path(G, (0, 0), (3, 5))
+@test length(find_path(G, (0, 0), (3, 5))) == length(find_path_undirected(G, (0, 0), (3, 5)))
 @test isempty(find_path(G, (0, 0), (3, 5), 7))
