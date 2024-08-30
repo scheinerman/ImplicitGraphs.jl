@@ -8,7 +8,12 @@ returns `true`.
 Optionally, we include a `cutoff_depth` at which the search stops, to
 avoid exponential memory usage.
 """
-function find_path(G::ImplicitGraph{T}, s::T, is_target::Function, cutoff_depth::Int=0) where {T}
+function find_path(
+    G::ImplicitGraph{T},
+    s::T,
+    is_target::Function,
+    cutoff_depth::Int = 0,
+) where {T}
     if is_target(s)
         return [s]
     end
@@ -55,7 +60,12 @@ If a vertex `v` is found such that `is_target` returns `true`, then abort search
 
 This will mutate `tracer`, inserting all the new vertices found.
 """
-function advance_frontier(G::ImplicitGraph{T}, is_target::Function, frontier::Array{T}, tracer::Dict{T, T}) where {T}
+function advance_frontier(
+    G::ImplicitGraph{T},
+    is_target::Function,
+    frontier::Array{T},
+    tracer::Dict{T,T},
+) where {T}
     new_frontier = T[]
     for v in frontier
         Nv = G[v]
@@ -81,7 +91,7 @@ end
 Traces back path from source `s` to target `t` using the tracer dictionary.
 The path is returned in reversed order
 """
-function traceback_path(tracer::Dict{T, T}, s::T, t::T) where {T}
+function traceback_path(tracer::Dict{T,T}, s::T, t::T) where {T}
     rev_path = Array{T}(undef, 1)
     rev_path[1] = t
     while rev_path[end] != s
@@ -94,7 +104,7 @@ end
 """
 `find_path(G::ImplicitGraph,s,t)` finds a shortest path from `s` to `t`.
 """
-function find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
+function find_path(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int = 0) where {T}
 
     if !has(G, s) || !has(G, t)
         error("Source and/or target vertex is not in this graph")
@@ -109,7 +119,12 @@ end
 Finds a shortest path from `s` to `t`, assuming that `G` is undirected.
 This will proceed from both ends of the path until finding a common vertex.
 """
-function find_path_undirected(G::ImplicitGraph{T}, s::T, t::T, cutoff_depth::Int=0) where {T}
+function find_path_undirected(
+    G::ImplicitGraph{T},
+    s::T,
+    t::T,
+    cutoff_depth::Int = 0,
+) where {T}
 
     if !has(G, s) || !has(G, t)
         error("Source and/or target vertex is not in this graph")

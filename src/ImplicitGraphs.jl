@@ -28,7 +28,7 @@ function getindex(G::ImplicitGraph{T}, v::T) where {T}
     G.out_neighbors(v)
 end
 
-eltype(G::ImplicitGraph{T}) where {T} = T
+eltype(::ImplicitGraph{T}) where {T} = T
 
 function getindex(G::ImplicitGraph{T}, v::T, w::T) where {T}
     if !has(G, v) || !has(G, w)

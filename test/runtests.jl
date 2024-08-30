@@ -39,5 +39,6 @@ G = iGrid()
 
 # cutoff depth
 @test find_path(G, (0, 0), (3, 5), 8) == find_path(G, (0, 0), (3, 5))
-@test length(find_path(G, (0, 0), (3, 5))) == length(find_path_undirected(G, (0, 0), (3, 5)))
+@test length(find_path(G, (0, 0), (3, 5))) ==
+      length(find_path_undirected(G, (0, 0), (3, 5)))
 @test isempty(find_path(G, (0, 0), (3, 5), 7))
